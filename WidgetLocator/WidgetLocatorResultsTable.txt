@@ -1,0 +1,8 @@
+##### Application: Adobe(0)
+xpath:	0	2	0
+idxpath:	0	2	0
+ide:	0	2	0
+robula:	0	2	0
+montoto:	0	2	0
+Multilocator:	0	2	0
+Similo:	2	0	0

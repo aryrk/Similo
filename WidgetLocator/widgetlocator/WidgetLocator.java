@@ -290,8 +290,8 @@ public class WidgetLocator {
 	private long locateWebElements() {
 		WebDriverManager.edgedriver().setup();
 		EdgeOptions options = new EdgeOptions();
-        options.addArguments("--start-maximized");
-        options.addArguments("--remote-allow-origins=*");
+		options.addArguments("--start-maximized");
+		options.addArguments("--remote-allow-origins=*");
 		webDriver = new EdgeDriver(options);
 		webDriver.manage().timeouts().setScriptTimeout(300, TimeUnit.SECONDS);
 
@@ -477,7 +477,9 @@ public class WidgetLocator {
 	}
 
 	private Locator similo(Locator targetWidget, List<Locator> candidateWidgets) {
-		// similoCalculation(targetWidget, candidateWidgets);
+		System.out.println("[LOG] similo: Trying to match target widget:");
+		System.out.println("[LOG]   Target properties: " + targetWidget.getProperties());
+		System.out.println("[LOG]   Number of candidate widgets: " + candidateWidgets.size());
 
 		for (Locator candidateWidget : candidateWidgets) {
 			candidateWidget.setDuration(0);
@@ -525,6 +527,11 @@ public class WidgetLocator {
 
 		Collections.sort(candidateWidgets);
 		Locator bestCandidateWidget = candidateWidgets.get(0);
+
+		System.out.println("[LOG] similo: Best candidate found:");
+		System.out.println("[LOG]   Properties: " + bestCandidateWidget.getProperties());
+		System.out.println("[LOG]   Similarity score: " + bestCandidateWidget.getScore());
+
 		return bestCandidateWidget;
 	}
 
@@ -908,6 +915,7 @@ public class WidgetLocator {
 	}
 
 	public Locator getLocatorForElement(String elementXPath) {
+		System.out.println("[LOG] Trying to locate element with XPath: " + elementXPath);
 		List<Locator> locators = getLocators();
 		if (locators != null) {
 			for (Locator locator : locators) {
@@ -919,10 +927,15 @@ public class WidgetLocator {
 						locator.putMetadata("robula", locatorAll.getMetadata("robula"));
 						locator.putMetadata("montoto", locatorAll.getMetadata("montoto"));
 					}
+					System.out.println("[LOG] Element found. All locator methods:");
+					System.out.println("[LOG]   ide: " + locator.getMetadata("ide"));
+					System.out.println("[LOG]   robula: " + locator.getMetadata("robula"));
+					System.out.println("[LOG]   montoto: " + locator.getMetadata("montoto"));
 					return locator;
 				}
 			}
 		}
+		System.out.println("[LOG] Element not found for XPath: " + elementXPath);
 		return null;
 	}
 
